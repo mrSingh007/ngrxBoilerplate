@@ -6,5 +6,23 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
   title = 'store';
+
+  entityName="Pizzas";
+
+  //actions
+  actionFileOpen=false;
+
+  //effects
+  effectFileOpen=false;
+
+  //reducer
+  reducerFileOpen= false;
+
+
+
+  entityNameChanged($ev:string){
+    this.entityName=$ev;
+  }
 }
