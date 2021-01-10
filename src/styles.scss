@@ -1,26 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
 /* Core CSS required for Ionic components to work properly */
-@import "~@ionic/angular/css/core.css";
-
-/* Basic CSS for apps built with Ionic */
-@import "~@ionic/angular/css/normalize.css";
-@import "~@ionic/angular/css/structure.css";
-@import "~@ionic/angular/css/typography.css";
-@import "~@ionic/angular/css/display.css";
-
-/* Optional CSS utils that can be commented out */
-@import "~@ionic/angular/css/padding.css";
-@import "~@ionic/angular/css/float-elements.css";
-@import "~@ionic/angular/css/text-alignment.css";
-@import "~@ionic/angular/css/text-transformation.css";
-@import "~@ionic/angular/css/flex-utils.css";
-
+.center{
+  text-align: center;
+}
 .hidden{
   display: none;
 }
 .show{
   display: block;
 }
-.mouse{
+.actions, .effects, .reducer{
+ .header{
+  background: #ece7e3;
+  display: flex;
+  align-items: center;
   cursor: pointer;
+  padding: 10px;
+  .label{
+    width: 90%;
+  }
+ }
+  img{
+    width:20px;
+  }
+}
+.label-input{
+  padding-left: 10%;
+  label{
+    padding:10px;
+  }
+  input{
+    width: 70%;
+    height: 25px;
+  }
 }

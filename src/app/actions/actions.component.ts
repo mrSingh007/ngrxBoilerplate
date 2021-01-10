@@ -1,5 +1,12 @@
-import { Component, ElementRef, Input, ViewChild } from "@angular/core";
-import { DomSanitizer } from '@angular/platform-browser';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from "@angular/core";
+import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
   selector: "app-actions",
@@ -10,19 +17,19 @@ export class ActionsComponent {
   @ViewChild("actionDiv") content: ElementRef;
 
   @Input()
-  name:any="Pizzas";
+  name: any = "Pizzas";
 
   @Input()
-  active=false;
+  active = false;
 
-  constructor(private sanitizer: DomSanitizer) {
+  @Output()
+  download = new EventEmitter<any>();
 
-  }
-
+  constructor(private sanitizer: DomSanitizer) {}
 
   get actions() {
     let uperName = this.name.toUpperCase();
-    let funName = this.name.replaceAll("_","");
+    let funName = this.name.replaceAll("_", "");
 
     const res = `import { Action } from '@ngrx/store';<br>
 
@@ -41,30 +48,16 @@ export class Load${funName}Fail implements Action { <br>
 <br>
 export class Load${funName}Success implements Action { <br>
   readonly type = LOAD_${uperName}_SUCCESS; <br>
-  constructor(public payload: Array<any>) {} <br>
+  constructor(public payload: any[]) {} <br>
 } <br>
 <br>
 export type ${funName}Action = Load${funName} | Load${funName}Fail | Load${funName}Success;
     `;
-   return this.sanitizer.bypassSecurityTrustHtml(res);
-
+    return this.sanitizer.bypassSecurityTrustHtml(res);
   }
 
   downloadInnerHtml() {
-    let funName:string = this.name.replaceAll("_","");
-    let filename = funName.toLowerCase()+".action.ts";
-    let elHtml:any = this.content.nativeElement.innerHTML;
-    console.log(elHtml);
-
-   elHtml = elHtml.replaceAll("<br>","");
-    var link = document.createElement("a");
-    let mimeType = "text/plain";
-
-    link.setAttribute("download", filename);
-    link.setAttribute(
-      "href",
-      "data:" + mimeType + ";charset=utf-8," + encodeURIComponent(elHtml)
-    );
-    link.click();
+    let elHtml: any = this.content.nativeElement.innerHTML;
+    this.download.emit(elHtml);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from "@angular/core";
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
@@ -14,6 +14,9 @@ export class EffectsComponent {
 
   @Input()
   active = false;
+
+  @Output()
+  download = new EventEmitter<any>();
 
   constructor(private sanitizer: DomSanitizer) {}
 
@@ -56,21 +59,7 @@ export class ${funName}Effects { <br>
   }
 
   downloadInnerHtml() {
-    let funName: string = this.name.replaceAll("_", "");
-    let filename = funName.toLowerCase() + ".effects.ts";
-    let elHtml: any = this.content.nativeElement.innerHTML;
-    console.log(elHtml);
-
-    elHtml = elHtml.replaceAll("<br>", "");
-    elHtml = elHtml.replaceAll("&gt;", ">");
-    var link = document.createElement("a");
-    let mimeType = "text/plain";
-
-    link.setAttribute("download", filename);
-    link.setAttribute(
-      "href",
-      "data:" + mimeType + ";charset=utf-8," + encodeURIComponent(elHtml)
-    );
-    link.click();
+    let elHtml:any = this.content.nativeElement.innerHTML;
+    this.download.emit(elHtml);
   }
 }

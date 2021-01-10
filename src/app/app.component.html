@@ -1,52 +1,57 @@
-<ion-header class="ion-text-center">
-  <ion-toolbar>
-    <ion-title color="primary">NgRx Boilerplate</ion-title>
-  </ion-toolbar>
-</ion-header>
-<ion-content>
-  <ion-item>
-    <ion-label>Entity Name:</ion-label>
-    <ion-input type="text" value="Pizzas" (ionChange)="entityNameChanged($event.detail.value)"></ion-input>
-  </ion-item>
+<div class="center">
+  <h2>NgRx Boilerplate</h2>
+</div>
+
+<div class="main">
+  <div class="label-input">
+    <label>Entity Name:</label>
+    <input style="border-bottom: 1px solid black;" type="text" value="Pizzas"
+    (keyup)="entityNameChanged($event.target.value)" />
+  </div>
+</div>
+
+<div class="actions">
+  <div class="header" (click)="actionFileOpen=!actionFileOpen">
+    <div class="label">
+      Actions
+    </div>
+    <div>
+      <img *ngIf="!actionFileOpen" src="assets/chevron-down.svg" />
+      <img *ngIf="actionFileOpen" src="assets/chevron-up.svg" />
+    </div>
+  </div>
+  <div class="body">
+    <app-actions [name]="entityName" [active]="actionFileOpen" (download)="createFile($event,'action')"></app-actions>
+  </div>
+</div>
+
+<div class="effects">
+  <div class="header" (click)="effectFileOpen=!effectFileOpen">
+    <div class="label">
+      Effects
+    </div>
+    <div>
+      <img *ngIf="!effectFileOpen" src="assets/chevron-down.svg" />
+      <img *ngIf="effectFileOpen" src="assets/chevron-up.svg" />
+    </div>
+  </div>
+  <div class="body">
+    <app-effects [name]="entityName" [active]="effectFileOpen" (download)="createFile($event,'effect')"></app-effects>
+  </div>
+</div>
 
 
-    <!-- actions -->
-    <ion-card>
-      <ion-card-header>
-        <ion-item (click)="actionFileOpen=!actionFileOpen" class="mouse">
-          <ion-label>Actions</ion-label>
-          <ion-icon *ngIf="!actionFileOpen" src="assets/chevron-down.svg" slot="end"></ion-icon>
-          <ion-icon *ngIf="actionFileOpen" src="assets/chevron-up.svg" slot="end"></ion-icon>
-        </ion-item>
-      </ion-card-header>
-      <ion-card-content>
-        <app-actions [name]="entityName" [active]="actionFileOpen"></app-actions>
-      </ion-card-content>
-    </ion-card>
-    <!-- effects -->
-    <ion-card>
-      <ion-card-header>
-        <ion-item (click)="effectFileOpen=!effectFileOpen" class="mouse">
-          <ion-label>Effect</ion-label>
-          <ion-icon *ngIf="!effectFileOpen" src="assets/chevron-down.svg" slot="end"></ion-icon>
-          <ion-icon *ngIf="effectFileOpen" src="assets/chevron-up.svg" slot="end"></ion-icon>
-        </ion-item>
-      </ion-card-header>
-      <ion-card-content>
-        <app-effects [name]="entityName" [active]="effectFileOpen"></app-effects>
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card>
-      <ion-card-header>
-        <ion-item (click)="reducerFileOpen=!reducerFileOpen" class="mouse">
-          <ion-label>Reducer</ion-label>
-          <ion-icon *ngIf="!reducerFileOpen" src="assets/chevron-down.svg" slot="end"></ion-icon>
-          <ion-icon *ngIf="reducerFileOpen" src="assets/chevron-up.svg" slot="end"></ion-icon>
-        </ion-item>
-      </ion-card-header>
-      <ion-card-content>
-        <app-reducers [name]="entityName" [active]="reducerFileOpen"></app-reducers>
-      </ion-card-content>
-    </ion-card>
-</ion-content>
+<div class="reducer">
+  <div class="header" (click)="reducerFileOpen=!reducerFileOpen">
+    <div class="label">
+      Reducer
+    </div>
+    <div>
+      <img *ngIf="!reducerFileOpen" src="assets/chevron-down.svg" />
+      <img *ngIf="reducerFileOpen" src="assets/chevron-up.svg" />
+    </div>
+  </div>
+  <div class="body">
+    <app-reducers [name]="entityName" [active]="reducerFileOpen" (download)="createFile($event,'reducer')"></app-reducers>
+  </div>
+</div>
